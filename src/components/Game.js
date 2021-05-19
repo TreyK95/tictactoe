@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { calculateWinner } from "./helper";
+import { calculateWinner } from "../helper";
 import Board from "./Board";
 
 const Game = () => {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [stepNumber, setStepNumber] = useState(0);
-  const [xIsNext, setXIsNext] = useState(true);
+  const [xIsNext, setXisNext] = useState(true);
   const winner = calculateWinner(history[stepNumber]);
   const xO = xIsNext ? "X" : "O";
 
@@ -19,25 +19,23 @@ const Game = () => {
     squares[i] = xO;
     setHistory([...historyPoint, squares]);
     setStepNumber(historyPoint.length);
-    setXIsNext(!xIsNext);
+    setXisNext(!xIsNext);
   };
 
   const jumpTo = (step) => {
     setStepNumber(step);
-    setXIsNext(step % 2 === 0);
+    setXisNext(step % 2 === 0);
   };
 
-  const renderMoves = () => {
+  const renderMoves = () =>
     history.map((_step, move) => {
       const destination = move ? `Go to move #${move}` : "Go to Start";
       return (
         <li key={move}>
-          <button onClick={() => jumpTo(move)}>Destination</button>
+          <button onClick={() => jumpTo(move)}>{destination}</button>
         </li>
       );
     });
-  };
-
   return (
     <>
       <h1>Tic Tac Toe</h1>
